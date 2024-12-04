@@ -10,6 +10,6 @@ jobs:
     uses: clouddrove/github-shared-workflows/.github/workflows/docker-scanner.yml@master
     with:
       severity: HIGH,CRITICAL # Pass valid severity levels
-     
-       
-       
+      dockerfile-path: ./Dockerfile # Optional, default is already defined
+      security-upload: true # Optional
+      block_action: true # Optional
