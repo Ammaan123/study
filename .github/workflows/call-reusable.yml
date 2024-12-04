@@ -10,6 +10,6 @@ jobs:
     uses: clouddrove/github-shared-workflows/.github/workflows/docker-scanner.yml@master
     with:
       severity: HIGH,CRITICAL # Pass valid severity levels
-      name: hello
+     
        
        
