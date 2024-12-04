@@ -7,7 +7,7 @@ on:
 
 jobs:
   call_reusable_workflow:
-    uses: Ammaan123/reusable-workflow-repo/.github/workflows/reusable.yml@Docker
+    uses: Ammaan123/reusable-workflow-repo/.github/workflows/reusable.yml@main
     with:
       name: World
       greeting: Hi
