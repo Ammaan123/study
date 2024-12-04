@@ -4,11 +4,11 @@ on:
   push:
     branches:
       - master # Trigger on commits to the master branch
-  workflow_dispatch: # Allow manual triggers from the GitHub GUI
+#  workflow_dispatch: # Allow manual triggers from the GitHub GUI
 
 jobs:
   call_reusable_workflow:
-    uses: <YOUR_USERNAME>/reusable-workflow-repo/.github/workflows/reusable.yml@master
+    uses: Ammaan123/reusable-workflow-repo/.github/workflows/reusable.yml@master
     with:
       name: World
       greeting: Hi
