@@ -12,4 +12,5 @@ jobs:
       severity: HIGH,CRITICAL # Pass valid severity levels
       dockerfile-path: ./Dockerfile # Optional, default is already defined
       security-upload: true # Optional
-      block_action: true # Optional
+      block_action: true # Optional####
+###
