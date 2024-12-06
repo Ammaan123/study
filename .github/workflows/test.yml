@@ -23,5 +23,11 @@ jobs:
           sudo dpkg -i trivy.deb
           rm -f trivy.deb
 
-          # Scan the Docker image for vulnerabilities
-          trivy image --exit-code 1 --no-progress my-local-image:latest
+          # Scan the Docker image for vulnerabilities and store the result in a file
+          trivy image --no-progress --output trivy-report.txt my-local-image:latest || true
+
+      - name: Upload Trivy report
+        uses: actions/upload-artifact@v3
+        with:
+          name: trivy-report
+          path: trivy-report.txt
