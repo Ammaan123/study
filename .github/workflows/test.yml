@@ -15,14 +15,13 @@ jobs:
         run: |
           docker build -t my-local-image:latest .
 
-      - name: Install Trivy
-        run: |
-          sudo apt-get update
-          sudo apt-get install -y curl
-          curl -sfL https://github.com/aquasecurity/trivy/releases/download/v0.40.0/trivy_0.40.0_Linux-ARM64.deb -o trivy.deb
-          sudo dpkg -i trivy.deb
-          rm trivy.deb
+     - name: 'Trivy Scan for Vulnerabilities'
+    run: |
+    # Install Trivy
+    sudo apt-get update && sudo apt-get install -y curl
+    curl -sfL https://github.com/aquasecurity/trivy/releases/download/v0.45.0/trivy_0.45.0_Linux-64bit.deb -o trivy.deb
+    sudo dpkg -i trivy.deb
+    rm -f trivy.deb
 
-      - name: Scan Docker image with Trivy
-        run: |
-          trivy image --exit-code 1 --no-progress my-local-image:latest
+    # Scan the Docker image for vulnerabilities
+    trivy image --exit-code 1 --no-progress $ECR_REGISTRY/$ECR_REPOSITORY:${IMAGE_TAG}
