@@ -1,7 +1,7 @@
 name: Trivy Vulnerability Scan
 
 on:
- push:
+  push:
 
 jobs:
   build-amd:
@@ -46,7 +46,7 @@ jobs:
           docker pull my-local-image:latest
 
       - name: Upload manifest image as artifact
-        uses: actions/upload-artifact@v2
+        uses: actions/upload-artifact@v3
         with:
           name: manifest-image
           path: /home/runner/.docker/manifests
