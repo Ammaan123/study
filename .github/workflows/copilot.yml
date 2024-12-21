@@ -1,7 +1,7 @@
 name: Trivy Vulnerability Scan
 
 on:
- push:
+  push:
 
 jobs:
   build-amd:
@@ -12,7 +12,7 @@ jobs:
         uses: actions/checkout@v3
 
       - name: Log in to Docker Hub
-        run: echo "${{ secrets.DOCKER_PASSWORD }}" | docker login -u "${{ secrets.DOCKER_USERNAME }}" --password-stdin
+        run: echo "Qqpp001@123" | docker login -u "amaan9656" --password-stdin
 
       - name: Build Docker image for AMD
         run: |
@@ -26,7 +26,7 @@ jobs:
         uses: actions/checkout@v3
 
       - name: Log in to Docker Hub
-        run: echo "${{ secrets.DOCKER_PASSWORD }}" | docker login -u "${{ secrets.DOCKER_USERNAME }}" --password-stdin
+        run: echo "Qqpp001@123" | docker login -u "amaan9656" --password-stdin
 
       - name: Build Docker image for ARM
         run: |
@@ -41,7 +41,7 @@ jobs:
         uses: actions/checkout@v3
 
       - name: Log in to Docker Hub
-        run: echo "${{ secrets.DOCKER_PASSWORD }}" | docker login -u "${{ secrets.DOCKER_USERNAME }}" --password-stdin
+        run: echo "Qqpp001@123" | docker login -u "amaan9656" --password-stdin
 
       - name: Create Docker manifest locally
         run: |
