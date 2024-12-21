@@ -52,8 +52,16 @@ jobs:
         run: |
           docker manifest create amaan9656/fine:latest \
             amaan9656/fine:amd64 \
-            amaan9656/fine:arm64
+            amaan9656/fine:arm64 --amend
 
       - name: Push Docker manifest
         run: |
           docker manifest push amaan9656/fine:latest
+
+      - name: Delete AMD image
+        run: |
+          docker rmi amaan9656/fine:amd64
+
+      - name: Delete ARM image
+        run: |
+          docker rmi amaan9656/fine:arm64
