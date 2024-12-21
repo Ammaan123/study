@@ -16,7 +16,11 @@ jobs:
 
       - name: Build Docker image for AMD
         run: |
-          docker build --platform linux/amd64 -t my-local-image:amd64 -f Dockerfile .
+          docker build --platform linux/amd64 -t amaan9656/fine:amd64 -f Dockerfile .
+      
+      - name: Push Docker image for AMD
+        run: |
+          docker push amaan9656/fine:amd64
 
   build-arm:
     runs-on: ubuntu-latest
@@ -30,31 +34,26 @@ jobs:
 
       - name: Build Docker image for ARM
         run: |
-          docker build --platform linux/arm64 -t my-local-image:arm64 -f Dockerfile .
+          docker build --platform linux/arm64 -t amaan9656/fine:arm64 -f Dockerfile .
+      
+      - name: Push Docker image for ARM
+        run: |
+          docker push amaan9656/fine:arm64
 
   create-manifest:
     runs-on: ubuntu-latest
     needs: [build-amd, build-arm]
 
     steps:
-      - name: Checkout code
-        uses: actions/checkout@v3
-
       - name: Log in to Docker Hub
         run: echo "Qqpp001@123" | docker login -u "amaan9656" --password-stdin
 
-      - name: Create Docker manifest locally
+      - name: Create Docker manifest
         run: |
-          docker manifest create my-local-image:latest \
-            my-local-image:amd64 \
-            my-local-image:arm64
+          docker manifest create amaan9656/fine:latest \
+            amaan9656/fine:amd64 \
+            amaan9656/fine:arm64
 
-      - name: Download latest manifest image
+      - name: Push Docker manifest
         run: |
-          docker pull my-local-image:latest
-
-      - name: Upload manifest image as artifact
-        uses: actions/upload-artifact@v3
-        with:
-          name: manifest-image
-          path: /home/runner/.docker/manifests
+          docker manifest push amaan9656/fine:latest
