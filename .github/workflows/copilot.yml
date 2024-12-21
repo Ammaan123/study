@@ -16,7 +16,7 @@ jobs:
           docker build --platform linux/amd64 -t my-local-image:amd64 .
 
   build-arm:
-    runs-on: ubuntu-20.04
+    runs-on: ubuntu-latest
 
     steps:
       - name: Checkout code
