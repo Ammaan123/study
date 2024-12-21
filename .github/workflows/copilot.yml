@@ -1,7 +1,7 @@
 name: Trivy Vulnerability Scan
 
 on:
-  push:
+ push:
 
 jobs:
   build-amd:
@@ -13,7 +13,7 @@ jobs:
 
       - name: Build Docker image for AMD
         run: |
-          docker build --platform linux/amd64 -t my-local-image:amd64 .
+          docker build --platform linux/amd64 -t my-local-image:amd64 -f Dockerfile .
 
   build-arm:
     runs-on: ubuntu-latest
@@ -24,7 +24,7 @@ jobs:
 
       - name: Build Docker image for ARM
         run: |
-          docker build --platform linux/arm64 -t my-local-image:arm64 .
+          docker build --platform linux/arm64 -t my-local-image:arm64 -f Dockerfile .
 
   create-manifest:
     runs-on: ubuntu-latest
