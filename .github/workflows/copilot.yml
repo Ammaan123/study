@@ -1,67 +1,29 @@
-name: Trivy Vulnerability Scan
+name: Docker Build and TFLint Check
 
 on:
   push:
 
 jobs:
-  build-amd:
+  build:
     runs-on: ubuntu-latest
 
     steps:
       - name: Checkout code
         uses: actions/checkout@v3
 
-      - name: Log in to Docker Hub
-        run: echo "Qqpp001@123" | docker login -u "amaan9656" --password-stdin
-
-      - name: Build Docker image for AMD
+      - name: Run TFLint
         run: |
-          docker build --platform linux/amd64 -t amaan9656/fine:amd64 -f Dockerfile .
-      
-      - name: Push Docker image for AMD
-        run: |
-          docker push amaan9656/fine:amd64
-
-  build-arm:
-    runs-on: ubuntu-latest
-
-    steps:
-      - name: Checkout code
-        uses: actions/checkout@v3
+          curl -s https://raw.githubusercontent.com/terraform-linters/tflint/master/install_linux.sh | bash
+          tflint
 
       - name: Log in to Docker Hub
-        run: echo "Qqpp001@123" | docker login -u "amaan9656" --password-stdin
+        run: echo "${{ secrets.DOCKER_PASSWORD }}" | docker login -u "${{ secrets.DOCKER_USERNAME }}" --password-stdin
 
-      - name: Build Docker image for ARM
-        run: |
-          docker build --platform linux/arm64 -t amaan9656/fine:arm64 -f Dockerfile .
-      
-      - name: Push Docker image for ARM
-        run: |
-          docker push amaan9656/fine:arm64
+      - name: Build Docker image
+        run: docker build --platform linux/amd64 -t amaan9656/fine:amd64 -f Dockerfile .
 
-  create-manifest:
-    runs-on: ubuntu-latest
-    needs: [build-amd, build-arm]
+      - name: Push Docker image
+        run: docker push amaan9656/fine:amd64
 
-    steps:
-      - name: Log in to Docker Hub
-        run: echo "Qqpp001@123" | docker login -u "amaan9656" --password-stdin
-
-      - name: Create Docker manifest
-        run: |
-          docker manifest create amaan9656/fine:latest \
-            amaan9656/fine:amd64 \
-            amaan9656/fine:arm64 --amend
-
-      - name: Push Docker manifest
-        run: |
-          docker manifest push amaan9656/fine:latest
-
-      - name: Delete AMD image
-        run: |
-          docker rmi amaan9656/fine:amd64
-
-      - name: Delete ARM image
-        run: |
-          docker rmi amaan9656/fine:arm64
+      - name: Clean up image
+        run: docker rmi amaan9656/fine:amd64
